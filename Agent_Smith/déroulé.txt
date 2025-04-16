@@ -1,0 +1,32 @@
+Nous avons déployé un chatbot Teams pleinement fonctionnel,
+intégrant l'API Gemini pour exploiter les capacités avancées de l'intelligence artificielle.
+Ce chatbot évolue actuellement dans un environnement de test,
+permettant d'évaluer ses performances et d'ajuster ses fonctionnalités en fonction des besoins.
+
+En parallèle, nous disposons d'un dataset structuré et opérationnel,
+conçu pour répondre efficacement aux requêtes de l'application.
+Une API dédiée a été mise en place, offrant la possibilité d'interroger directement la base de données
+grâce à un identifiant unique attribué à chaque champ de données.
+Cette architecture garantit un accès rapide et précis aux informations,
+tout en assurant une gestion optimisée des interactions entre le chatbot et la base de données.
+
+
+
+Il nous reste à établir la connexion entre notre chatbot et l'API de la base de données,
+ainsi qu'à créer un prompt pour informer Gemini d'intégrer les données fournies par la base
+afin de répondre efficacement à toutes les attentes de la BPCE.
+
+
+
+pour le Canva on fait faire :
+     une slide de de presentation de notre equipe
+     une slide rappel de la problématique 
+     une slide pour le motion( je vous explique demain)
+     une slide pour expliquer notre projet -> Agent Smith -->>> la on explique vrmt tous (les regles du seuil; le theme matrix etc;)
+     une slide orga --> on a divisé le travail en 2 equipe 
+     --> 1 slide pour chauques equipe je pense avec le taff qu'on a fait (la db; le batch; le call api; l'api; le prompt; le link bot <--> api <--> db)
+     une slide pour parler de la migration environnement test ->> prod(real Teams)
+     une slide empreinte carbone neutre car full cloud --> politique ecologique de google et microsoft 
+
+    une slide pour expliquer les capacité de notre chat bot
+    une slide d'intro a la demo

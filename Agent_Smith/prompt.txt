@@ -1,0 +1,19 @@
+Analyse l’objet JSON fourni et attribue-lui un score de confiance (entre 0 et 100) en fonction de la qualité des informations qu'il contient.
+
+Critères d'évaluation :
+
+    🚨 Alerte critique si les dates du changement tombent en période de gel, réduis l'indice de confiance de 40.
+    Réduis l’indice de confiance si :
+        Des champs sont vides ou peu détaillés.
+        Il manque des tests ou une stratégie de rollback.
+        Le processus ou les phases ne sont pas renseignés.
+        Le périmètre ou l’impact est élevé sans justification claire.
+        Des incohérences sont présentes.
+    🚨 Alerte rouge si les dates du changement tombent pendant une plage sensible, réduis l'indice de confiance de 20.
+
+Réponse attendue :
+
+    Liste des points critiques identifiés.
+    Score final de fiabilité du changement.
+
+ 
