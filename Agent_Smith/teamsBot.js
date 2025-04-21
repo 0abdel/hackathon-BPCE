@@ -172,9 +172,17 @@ class TeamsBot extends TeamsActivityHandler {
             const fullText = result.candidates[0].content.parts[0].text;
             console.log("🧠 Réponse Gemini :", fullText);
     
-            const scoreRegex = /"score_fiabilite"\s*:\s*(\d{1,3})/i;
-            const match = fullText.match(scoreRegex);
-            const confidence = match ? parseInt(match[1]) : null;
+            let confidence = null;
+    
+            let match = fullText.match(/"score_fiabilite"\s*:\s*(\d{1,3})/i);
+            if (match) {
+                confidence = parseInt(match[1]);
+            } else {
+                match = fullText.match(/score\s*final\s*[:=]?\s*(\d{1,3})/i);
+                if (match) {
+                    confidence = parseInt(match[1]);
+                }
+            }
     
             if (confidence !== null) {
                 console.log(`📊 Indice de confiance détecté : ${confidence}`);
@@ -191,7 +199,7 @@ class TeamsBot extends TeamsActivityHandler {
                     console.log(`✅ Indice de confiance ${confidence} mis à jour pour le changement ${CHANGEMENT_NB}`);
                 }
             } else {
-                console.warn("⚠️ Aucun score_fiabilite détecté dans la réponse.");
+                console.warn("⚠️ Aucun score détecté (ni score_fiabilite, ni score final).");
             }
     
             return fullText;
