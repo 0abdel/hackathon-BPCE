@@ -16,5 +16,6 @@ Réponse attendue :
     Numéro du changement.
     Liste des points critiques identifiés.
     Score final de fiabilité du changement.
+    Recommendations en fonction du score de fiabilité.
 
  

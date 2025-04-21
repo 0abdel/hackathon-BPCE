@@ -12,7 +12,7 @@ if (!GEMINI_API_KEY) {
 }
 
 
-const CHANGEMENT_NB = 799;
+const CHANGEMENT_NB = 136;
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -74,7 +74,7 @@ class TeamsBot extends TeamsActivityHandler {
                         }
 
                         // Get changements
-                        const objChang = await fetch(`http://localhost:3010/api/changements/` + CHANGEMENT_NB);
+                        const objChang = await fetch(`http://localhost:3010/api/changements/${CHANGEMENT_NB}`);
 
                         if (!objChang.ok) {
                             throw new Error('Network response was not ok');
