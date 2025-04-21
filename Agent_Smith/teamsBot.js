@@ -187,7 +187,7 @@ class TeamsBot extends TeamsActivityHandler {
             if (confidence !== null) {
                 console.log(`📊 Indice de confiance détecté : ${confidence}`);
     
-                const putResponse = await fetch(`http://localhost:3010/api/changement/${CHANGEMENT_NB}`, {
+                const putResponse = await fetch(`http://localhost:3010/api/changements/${CHANGEMENT_NB}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ indice_confiance: confidence }),
