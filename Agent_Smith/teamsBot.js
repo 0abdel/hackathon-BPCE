@@ -178,7 +178,7 @@ class TeamsBot extends TeamsActivityHandler {
             if (match) {
                 confidence = parseInt(match[1]);
             } else {
-                match = fullText.match(/score\s*final\s*[:=]?\s*(\d{1,3})/i);
+                match = fullText.match(/score\s*final(?:e)?(?:\s+de\s+fiabilit[eé])?\s*[:=]?\s*(\d{1,3})/i);
                 if (match) {
                     confidence = parseInt(match[1]);
                 }
@@ -199,7 +199,7 @@ class TeamsBot extends TeamsActivityHandler {
                     console.log(`✅ Indice de confiance ${confidence} mis à jour pour le changement ${CHANGEMENT_NB}`);
                 }
             } else {
-                console.warn("⚠️ Aucun score détecté (ni score_fiabilite, ni score final).");
+                console.warn("⚠️ Aucun indice de confiance détecté (score_fiabilite ou score final).");
             }
     
             return fullText;
