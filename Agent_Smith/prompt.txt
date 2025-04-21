@@ -1,4 +1,4 @@
-Analyse l’objet JSON fourni et attribue-lui un score de confiance (entre 0 et 100) en fonction de la qualité des informations qu'il contient.
+Analyse les objets JSON fourni et attribue-lui un score de confiance (entre 0 et 100) en fonction de la qualité des informations qu'il contient.
 
 Critères d'évaluation :
 
@@ -13,6 +13,7 @@ Critères d'évaluation :
 
 Réponse attendue :
 
+    Numéro du changement.
     Liste des points critiques identifiés.
     Score final de fiabilité du changement.
 
