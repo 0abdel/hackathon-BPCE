@@ -141,7 +141,7 @@ class TeamsBot extends TeamsActivityHandler {
             }
     
             const response = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${GEMINI_API_KEY}`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -170,17 +170,15 @@ class TeamsBot extends TeamsActivityHandler {
             }
     
             const fullText = result.candidates[0].content.parts[0].text;
-            console.log("🧠 Réponse brute Gemini :\n", fullText);
+            console.log("🧠 Réponse Gemini :", fullText);
     
-            // 🔍 Extraction de "Score finale : <nombre>"
-            const scoreRegex = /score\s*finale\s*[:=]?\s*(\d{1,3})/i;
+            const scoreRegex = /"score_fiabilite"\s*:\s*(\d{1,3})/i;
             const match = fullText.match(scoreRegex);
             const confidence = match ? parseInt(match[1]) : null;
     
             if (confidence !== null) {
                 console.log(`📊 Indice de confiance détecté : ${confidence}`);
     
-                // 🔄 Envoie l'indice de confiance au backend
                 const putResponse = await fetch(`http://localhost:3000/api/changement/${CHANGEMENT_NB}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -193,7 +191,7 @@ class TeamsBot extends TeamsActivityHandler {
                     console.log(`✅ Indice de confiance ${confidence} mis à jour pour le changement ${CHANGEMENT_NB}`);
                 }
             } else {
-                console.warn("⚠️ Aucun indice de confiance détecté dans la réponse.");
+                console.warn("⚠️ Aucun score_fiabilite détecté dans la réponse.");
             }
     
             return fullText;
