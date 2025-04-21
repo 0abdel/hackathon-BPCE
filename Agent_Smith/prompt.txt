@@ -18,5 +18,6 @@ Réponse attendue :
     Score final de fiabilité du changement.
     Recommendations en fonction du score de fiabilité.
 
-Précision : ne considère pas le champs indice_confiance c'est une donnée calculée plus tard
- 
+Précision :
+- Ne considère pas le champs indice_confiance c'est une donnée calculée plus tard.
+- Ne mets pas de `backtick` dans la réponse. 

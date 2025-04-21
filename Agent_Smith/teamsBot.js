@@ -12,7 +12,7 @@ if (!GEMINI_API_KEY) {
 }
 
 
-const CHANGEMENT_NB = 136;
+const CHANGEMENT_NB = 799;
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -125,7 +125,7 @@ class TeamsBot extends TeamsActivityHandler {
     async getGeminiResponse(conversationInput) {
         try {
             let formattedMessages;
-    
+
             if (Array.isArray(conversationInput)) {
                 formattedMessages = conversationInput.map((entry) => ({
                     role: entry.role,
@@ -139,7 +139,7 @@ class TeamsBot extends TeamsActivityHandler {
             } else {
                 throw new Error("❌ Type de contenu inattendu pour la requête Gemini");
             }
-    
+
             const response = await fetch(
                 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
                 {
@@ -150,15 +150,15 @@ class TeamsBot extends TeamsActivityHandler {
                     }),
                 }
             );
-    
+
             if (!response.ok) {
                 const errorMessage = `Erreur API: ${response.statusText} (Code ${response.status})`;
                 console.error("Erreur de réponse API : ", errorMessage);
                 throw new Error(errorMessage);
             }
-    
+
             const result = await response.json();
-    
+
             if (
                 !result ||
                 !result.candidates ||
@@ -168,12 +168,20 @@ class TeamsBot extends TeamsActivityHandler {
                 console.error("Structure inattendue de la réponse", result);
                 throw new Error("⚠️ Réponse inattendue de Gemini");
             }
-    
-            const fullText = result.candidates[0].content.parts[0].text;
-            console.log("🧠 Réponse Gemini :", fullText);
-    
+
+            let fullText = result.candidates[0].content.parts[0].text;
+
+            try {
+                fullText = JSON.parse(fullText);
+                console.log("🧾 Réponse parsée en JSON");
+            } catch (e) {
+                fullText = fullText;
+                console.log("📝 Réponse texte simple");
+            }
+
+
             let confidence = null;
-    
+
             let match = fullText.match(/"score_fiabilite"\s*:\s*(\d{1,3})/i);
             if (match) {
                 confidence = parseInt(match[1]);
@@ -183,16 +191,16 @@ class TeamsBot extends TeamsActivityHandler {
                     confidence = parseInt(match[1]);
                 }
             }
-    
+
             if (confidence !== null) {
                 console.log(`📊 Indice de confiance détecté : ${confidence}`);
-    
+
                 const putResponse = await fetch(`http://localhost:3010/api/changements/${CHANGEMENT_NB}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ indice_confiance: confidence }),
                 });
-    
+
                 if (!putResponse.ok) {
                     console.error("❌ Échec de la mise à jour de l'indice de confiance :", putResponse.statusText);
                 } else {
@@ -201,9 +209,9 @@ class TeamsBot extends TeamsActivityHandler {
             } else {
                 console.warn("⚠️ Aucun indice de confiance détecté (score_fiabilite ou score final).");
             }
-    
+
             return fullText;
-    
+
         } catch (error) {
             console.error("❌ Erreur dans getGeminiResponse :", error);
             return "Désolé, une erreur est survenue en essayant de générer une réponse.";
