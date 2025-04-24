@@ -76,6 +76,7 @@ Then :
 
 ```sh
 cd Agent_Smith
+npm install
 code .
 ```
 
